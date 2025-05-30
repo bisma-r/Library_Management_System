@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 'librarian') {
+    header("Location: login.php");
+    exit();
+}
+
 include 'db_connect.php';
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $borrow_id = $_POST['borrow_id'];
