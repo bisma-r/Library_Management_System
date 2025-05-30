@@ -1,3 +1,5 @@
+<?php require_once 'header.php'; ?>
+
 <!DOCTYPE html>
 <html>
 <head><title>View Books</title></head>
