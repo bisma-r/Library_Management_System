@@ -1,10 +1,20 @@
+<script>
+history.pushState(null, null, location.href);
+window.onpopstate = function() {
+    history.go(1);
+};
+</script>
+
 <?php
 session_start();
+
+if (isset($_SESSION['role']) && $_SESSION['role'] == 'librarian') {
+   unset($_SESSION['selected_role']);
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_POST['role'] == 'student') {
         $_SESSION['role'] = 'student';
-        echo $_SESSION['role'];
         header("Location: view_books.php");
         exit();
     } elseif ($_POST['role'] == 'librarian') {
@@ -27,4 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         Password: <input type="password" name="password" required><br><br>
         <input type="submit" value="Login">
     </form>
-<?php endif; ?>
+<?php 
+endif; ?>
+
+<?php
+
+if (isset($_SESSION['login_error'])) {
+    echo "<p style='color: red;'>" . $_SESSION['login_error'] . "</p>";
+    unset($_SESSION['login_error']);
+}
+?>
