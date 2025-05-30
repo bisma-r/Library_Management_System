@@ -24,13 +24,14 @@ session_start();
                 <a href="index.php">
                     <img src="assets/icon.png" alt="Library Logo" class="logo">
                 </a>
+            </div>
             <div class="branding">
                 <h1>Library Management System</h1>
             </div>
             
-            <?php if(isset($_SESSION['user_id'])): ?>
+            <?php if(isset($_SESSION['email'])): ?>
                 <nav class="user-nav">
-                    <span>Welcome, <?php echo htmlspecialchars($_SESSION['email']); ?></span>
+                    <!-- <span>Welcome, <?php echo htmlspecialchars($_SESSION['role']); ?></span> -->
                     <a href="logout.php" class="btn-logout">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
