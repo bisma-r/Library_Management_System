@@ -4,7 +4,8 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_POST['role'] == 'student') {
         $_SESSION['role'] = 'student';
-        header("Location: student_home.php");
+        echo $_SESSION['role'];
+        header("Location: view_books.php");
         exit();
     } elseif ($_POST['role'] == 'librarian') {
         $_SESSION['selected_role'] = 'librarian';
