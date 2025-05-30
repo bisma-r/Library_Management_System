@@ -39,7 +39,12 @@ body {
     justify-content: center;
     align-items: center;
 }
-
+.user-nav a{
+    color: var(--secondary-color);
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
 .icon{
     display: flex;
     align-items: center;
