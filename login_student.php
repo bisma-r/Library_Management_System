@@ -20,12 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         } else {
             $_SESSION['login_error'] = "Incorrect password.";
-            header("Location: student_login.php");
+            header("Location: login_student.php");
             exit();
         }
     } else {
         $_SESSION['login_error'] = "Email not found.";
-        header("Location: student_login.php");
+        header("Location: login_student.php");
         exit();
     }
 }
@@ -37,3 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     Password: <input type="password" name="password" required><br><br>
     <input type="submit" value="Login">
 </form>
+
+<?php
+if (isset($_SESSION['login_error'])) {
+    echo "<p style='color: red;'>" . $_SESSION['login_error'] . "</p>";
+    unset($_SESSION['login_error']);
+}
+?>
