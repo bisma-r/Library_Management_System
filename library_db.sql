@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2025 at 09:48 PM
+-- Generation Time: May 31, 2025 at 03:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -163,24 +163,56 @@ CREATE TABLE `members` (
   `MemberID` int(11) NOT NULL,
   `Name` varchar(100) DEFAULT NULL,
   `Email` varchar(100) DEFAULT NULL,
-  `JoinDate` date DEFAULT NULL
+  `JoinDate` date DEFAULT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`MemberID`, `Name`, `Email`, `JoinDate`) VALUES
-(1, 'Alice Johnson', 'alice.johnson@example.com', '2024-01-10'),
-(2, 'Bob Smith', 'bob.smith@example.com', '2024-02-15'),
-(3, 'Charlie Brown', 'charlie.brown@example.com', '2024-03-22'),
-(4, 'Diana Prince', 'diana.prince@example.com', '2024-04-01'),
-(5, 'Edward Davis', 'edward.davis@example.com', '2024-05-05'),
-(6, 'Fiona Green', 'fiona.green@example.com', '2024-06-14'),
-(7, 'George Harris', 'george.harris@example.com', '2024-07-20'),
-(8, 'Helen Adams', 'helen.adams@example.com', '2024-08-11'),
-(9, 'Ian White', 'ian.white@example.com', '2024-09-03'),
-(10, 'Jack Lee', 'jack.lee@example.com', '2024-10-19');
+INSERT INTO `members` (`MemberID`, `Name`, `Email`, `JoinDate`, `password`) VALUES
+(1, 'Alice Johnson', 'alice.johnson@example.com', '2024-01-10', '$2y$10$0pWVc5Tx4lfJc8aTh6jEUOQPPmxy9LbV7jR3rh.Sk1NIXZLyR/Jlq'),
+(2, 'Bob Smith', 'bob.smith@example.com', '2024-02-15', '$2y$10$zbYqI5jjUvwqvbPSrnmNBOUGMi1XnljQJStzzSYbDGK6CzFTNdr9K'),
+(3, 'Charlie Brown', 'charlie.brown@example.com', '2024-03-22', '$2y$10$sfMIrrdJ2hM8oLPx5sGJduKjU8ASrkQ7xTfGMxDw62Vv0nlaWAhKy'),
+(4, 'Diana Prince', 'diana.prince@example.com', '2024-04-01', '$2y$10$Z9fs0DjwBqJo/.Q6KhHu0u4BZc64UodK6.KXEccgkQ42TzKMB6Eiy'),
+(5, 'Edward Davis', 'edward.davis@example.com', '2024-05-05', '$2y$10$DJYXWxG62EGpv1e0m7NHYOugM/XN6NKVEbCm1TkoSoTTCYg/N4eVq'),
+(6, 'Fiona Green', 'fiona.green@example.com', '2024-06-14', '$2y$10$IgN/18g7R.6upR0IQ1bR0ObbLmj0CwR9TTwE68Y5cEVB47CKNjmuW'),
+(7, 'George Harris', 'george.harris@example.com', '2024-07-20', '$2y$10$UlZ5a1Nkt21ZyLoaY9Hke.CdUqP.bKOKvN.FpAwdTbFVKT6sNURK6'),
+(8, 'Helen Adams', 'helen.adams@example.com', '2024-08-11', '$2y$10$SmR17EDEppv2ZMtBoYY24O7/XYMroNHZdfb.1OumVHJXMIyY1oVOi'),
+(9, 'Ian White', 'ian.white@example.com', '2024-09-03', '$2y$10$Eqg/WQxiPv/9QUFNZvjWnO49FSjClhktlZgwhvqNFwTQsHIXu1gH2'),
+(10, 'Jack Lee', 'jack.lee@example.com', '2024-10-19', '$2y$10$9ByA1qAfG.0d/Zmpwe5Lse9pAlqV2W7SeWW4xRz4shhQTi5T49Vd6'),
+(11, 'Bisma Rauf', 'bisma.rauf@student.uni.edu.pk', NULL, '$2y$10$VOJ4jfQvJaksjUQrBGTHAuv1GIF62xvOLDIfN8prrU9FZnjtIxrYW');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `requestedbooks`
+--
+
+CREATE TABLE `requestedbooks` (
+  `RequestID` int(11) NOT NULL,
+  `MemberID` int(11) NOT NULL,
+  `BookID` int(11) NOT NULL,
+  `RequestDate` datetime DEFAULT current_timestamp(),
+  `Status` enum('Pending','Approved','Rejected') DEFAULT 'Pending'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `requestedbooks`
+--
+
+INSERT INTO `requestedbooks` (`RequestID`, `MemberID`, `BookID`, `RequestDate`, `Status`) VALUES
+(1, 1, 3, '2025-05-25 10:30:00', 'Pending'),
+(2, 2, 5, '2025-05-25 12:00:00', 'Approved'),
+(3, 3, 2, '2025-05-26 09:15:00', 'Pending'),
+(4, 4, 6, '2025-05-26 14:45:00', 'Rejected'),
+(5, 5, 1, '2025-05-27 11:20:00', 'Pending'),
+(6, 1, 4, '2025-05-27 16:30:00', 'Approved'),
+(7, 3, 5, '2025-05-28 08:10:00', 'Pending'),
+(8, 2, 1, '2025-05-28 13:50:00', 'Rejected'),
+(9, 6, 3, '2025-05-29 10:00:00', 'Pending'),
+(10, 5, 2, '2025-05-29 15:40:00', 'Approved');
 
 -- --------------------------------------------------------
 
@@ -193,6 +225,23 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `email`, `password`) VALUES
+(1, 'bisma.rauf@lib.uni.edu.pk', '$2y$10$al/tHPlprIKcxNdRIfGQK.5q/bRYm0KxIFfQRoPf71lbIT/dNCNjy'),
+(2, 'sara.ahmed@uni-library.edu.pk', '$2y$10$/YZ4z4KeOmuNSH81MZhsSuQ1EbFEENAg6tRYRkE/szd7OKZdRA8/6'),
+(3, 'usman.khan@csdept.uni.edu.pk', '$2y$10$n5tZ9v/wMi9q7Jc8Wl2QJO4F8yy2er4xYhjFnPwvHEqgWoOJ36Ddu'),
+(4, 'naila.bibi@central.university.pk', '$2y$10$jTAs4NmqIpExbTEHYhsVAO6qJpWGDI6nSeh0wJ4mT7H5ZXsAMil8S'),
+(5, 'ammar.raza@libstaff.edu.pk', '$2y$10$bGvyqJhjxCGwebqJODM9iOw6muRpS.UDWx36lgJkUGF1sDxpvkDrK'),
+(6, 'fatima.javed@library.uni.pk', '$2y$10$71JePbUT9Pn01d4RZkIhVeFzyEcfWVOHKnym4vCdQs70N9C7UZO0a'),
+(7, 'hassan.ali@librarians.uni.pk', '$2y$10$vXQcgDi.GlQezAOFt8MD2eHEAcPZSOtzBJ9q9V/yKxZFFI8HjCDGe'),
+(8, 'maheen.zahid@faculty.lib.pk', '$2y$10$BRbwninbrubeTLJ/.LMa8OBdBPDIeTLORPGPfCFyopy/nZRD9XP.C'),
+(9, 'talha.mir@mainlibrary.edu.pk', '$2y$10$/4PDwRj6rKdTlvxiuCRpdu2L47Kct1OhsuQ9tMFXtLb3.9mUTA77m'),
+(10, 'ayesha.kamil@staff.uni.edu.pk', '$2y$10$kHZen5G9z8ZtFnECUZ7v..1FpUhIXdw9I1sf/DdCTuYqeXUfR9x/.'),
+(11, 'zubair.malik@archive.uni.pk', '$2y$10$.OWdEOmRPquP71IfnFg6t.NQRcELFwCvpGC69N/ww2ij.pywGOmmq');
 
 --
 -- Indexes for dumped tables
@@ -233,6 +282,14 @@ ALTER TABLE `members`
   ADD PRIMARY KEY (`MemberID`);
 
 --
+-- Indexes for table `requestedbooks`
+--
+ALTER TABLE `requestedbooks`
+  ADD PRIMARY KEY (`RequestID`),
+  ADD KEY `MemberID` (`MemberID`),
+  ADD KEY `BookID` (`BookID`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -256,10 +313,16 @@ ALTER TABLE `borrowedbooks`
   MODIFY `BorrowID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `requestedbooks`
+--
+ALTER TABLE `requestedbooks`
+  MODIFY `RequestID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
@@ -278,6 +341,13 @@ ALTER TABLE `books`
 ALTER TABLE `borrowedbooks`
   ADD CONSTRAINT `borrowedbooks_ibfk_1` FOREIGN KEY (`MemberID`) REFERENCES `members` (`MemberID`),
   ADD CONSTRAINT `borrowedbooks_ibfk_2` FOREIGN KEY (`BookID`) REFERENCES `books` (`BookID`);
+
+--
+-- Constraints for table `requestedbooks`
+--
+ALTER TABLE `requestedbooks`
+  ADD CONSTRAINT `requestedbooks_ibfk_1` FOREIGN KEY (`MemberID`) REFERENCES `members` (`MemberID`),
+  ADD CONSTRAINT `requestedbooks_ibfk_2` FOREIGN KEY (`BookID`) REFERENCES `books` (`BookID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
