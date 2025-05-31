@@ -6,7 +6,7 @@ require 'db_connect.php';
 
 $result = $conn->query("SELECT * FROM books");
 
-echo "<h3>All Books in Library</h3>";
+echo "<h2>All Books in Library</h2>";
 echo "<table border='1'>
 <tr><th>ID</th><th>Title</th><th>Author ID</th><th>ISBN</th><th>Category ID</th><th>Quantity</th></tr>";
 
@@ -26,22 +26,21 @@ while ($row = $result->fetch_assoc()) {
         $check->execute();
         $check_result = $check->get_result();
 
-        if ($check_result->num_rows > 0) {
-            echo "<p>You have already requested this book.</p>";
-        } else {
-            echo "<form method='post' action='request_book.php'>
-                    <input type='hidden' name='book_id' value='{$row['BookID']}'>
-                    <input type='submit' value='Request to Borrow'>
-                  </form>";
+        if ($check_result->num_rows == 0) {
+         echo "<form method='post' action='request_book.php'>
+                <input type='hidden' name='book_id' value='{$row['BookID']}'>
+                <input type='submit' value='Request to Borrow'>
+                </form>";
         }
     }
 }
 echo "</table>";
-?>
 
-<!DOCTYPE html>
-<html>
-<head><title>View Books</title></head>
-<body>
-</body>
-</html>
+if (isset($_SESSION['success'])) {
+    echo "<div style='color: green; font-weight: bold; margin-top: 10px;'>Request submitted successfully.</div>";
+    unset($_SESSION['success']);
+} elseif (isset($_SESSION['error'])) {
+    echo "<div style='color: red; font-weight: bold; margin-top: 10px;'>You have already requested this book.</div>";
+    unset($_SESSION['error']);
+}
+?>

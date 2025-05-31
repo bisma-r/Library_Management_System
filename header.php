@@ -39,4 +39,5 @@ session_start();
             <?php endif; ?>
         </div>
     </header>
-</body
+            </body>
+            </html>
