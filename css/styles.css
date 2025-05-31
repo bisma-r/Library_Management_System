@@ -57,6 +57,25 @@ body {
     margin-right: 10px;
 }
 
+
+/* ========== Button Styles ========== */
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin: 0 3px;
+}
+
+.btn-icon:hover {
+    opacity: 0.7;
+}
+
+/* If using PNG icons */
+.btn-icon img {
+    vertical-align: middle;
+}
+
 /* ========== FOOTER STYLES ========== */
 /* .main-footer {
     background-color: var(--text-color);

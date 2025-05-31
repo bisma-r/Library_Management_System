@@ -10,6 +10,7 @@
         <li><a href="view_books.php">View All Books</a></li><br>
         <li><a href="borrow_book.php">Borrow Book</a></li><br>
         <li><a href="return_book.php">Return Book</a></li><br>
+        <li><a href="requested_books.php">View Book Requests</a></li><br>
     </ul>
 
 </body>
