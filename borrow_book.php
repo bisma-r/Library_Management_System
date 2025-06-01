@@ -1,7 +1,5 @@
 <?php 
-require_once 'header.php'; ?>
-
-<?php
+require_once 'header.php'; 
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] != 'librarian') {
     header("Location: login.php");
@@ -23,25 +21,70 @@ $result = $conn->query($sql);
 <html>
 <head>
     <title>Borrowed Books</title>
-<style>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+        }
+
         table {
             border-collapse: collapse;
-            width: 90%;
-            margin-top: 20px;
+            width: 100%;
+            font-size: 15px;
         }
+
         th, td {
-            padding: 10px 15px;
-            border: 1px solid #999;
+            padding: 12px 16px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f1f2f6;
+            color: #2f3542;
             text-align: left;
         }
-        th {
-            background-color: #f0f0f0;
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .not-returned {
+            color: #d63031;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #888;
         }
     </style>
 </head>
 <body>
 
-<?php if ($result->num_rows > 0): ?>
+<div class="container">
+    <h2>Borrowed Books Record</h2>
+
+    <?php if ($result->num_rows > 0): ?>
         <table>
             <tr>
                 <th>Borrow ID</th>
@@ -57,13 +100,15 @@ $result = $conn->query($sql);
                     <td><?= htmlspecialchars($row['BookTitle']) ?></td>
                     <td><?= $row['BorrowDate'] ?></td>
                     <td>
-                        <?= $row['ReturnDate'] ? $row['ReturnDate'] : "<span style='color: red;'>Not yet returned</span>" ?>
+                        <?= $row['ReturnDate'] ? $row['ReturnDate'] : "<span class='not-returned'>Not yet returned</span>" ?>
                     </td>
                 </tr>
             <?php endwhile; ?>
         </table>
     <?php else: ?>
-        <p>No books have been borrowed yet.</p>
+        <p style="text-align: center;">No books have been borrowed yet.</p>
     <?php endif; ?>
+</div>
+
 </body>
 </html>

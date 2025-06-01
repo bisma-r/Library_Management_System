@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $sql = "INSERT INTO books (Title, AuthorID, ISBN, CategoryID, Quantity)
             VALUES ('$title', '$author_id', '$isbn', '$category_id', '$quantity')";
+    $result = $conn->query($sql);
     $_SESSION['success'] = "Book added successfully!";
     header("Location: add_book.php");
     exit();
