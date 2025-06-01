@@ -13,9 +13,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'librarian') {
 $requests = $conn->query("SELECT r.RequestID, m.name AS MemberName, b.Title, r.Status
                          FROM requestedbooks r
                          JOIN members m ON r.MemberID = m.MemberID
-                         JOIN books b ON r.BookID = b.BookID");
+                         JOIN books b ON r.BookID = b.BookID
+                         WHERE r.Status = 'Pending'");
 
-// Check if there are any results
 if ($requests->num_rows > 0) {
     echo '<div class="table-container">';
     echo '<table border="1" cellspacing="0" cellpadding="8">';

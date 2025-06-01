@@ -1,5 +1,73 @@
-<?php
-session_start();
+<?php require_once 'header.php'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 80px auto;
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <?php
 require 'db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -30,17 +98,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+        <form method="post" action="login_student.php">
+            <h3>Student Login</h3>
+            <label>Email:</label>
+            <input type="email" name="email" required>
 
-<form method="post" action="login_student.php">
-    <h3>Student Login</h3>
-    Email: <input type="email" name="email" required><br><br>
-    Password: <input type="password" name="password" required><br><br>
-    <input type="submit" value="Login">
-</form>
+            <label>Password:</label>
+            <input type="password" name="password" required>
 
-<?php
-if (isset($_SESSION['login_error'])) {
-    echo "<p style='color: red;'>" . $_SESSION['login_error'] . "</p>";
-    unset($_SESSION['login_error']);
-}
-?>
+            <input type="submit" value="Login">
+        </form>
+
+        <?php
+        if (isset($_SESSION['login_error'])) {
+            echo "<div class='error-message'>" . $_SESSION['login_error'] . "</div>";
+            unset($_SESSION['login_error']);
+        }
+        ?>
+    </div>
+</body>
+</html>

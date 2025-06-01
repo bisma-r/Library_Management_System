@@ -1,11 +1,10 @@
-<?php
-session_start();
+<?php 
+require_once 'header.php'; 
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] != 'librarian') {
     header("Location: login.php");
     exit();
 }
-
 
 include 'db_connect.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -25,25 +24,101 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html>
-<head><title>Add Book</title></head>
+<head>
+    <title>Add Book</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2f3640;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #44bd32;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #2f9e1f;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
 <body>
 
-<h2>Add a New Book</h2>
-<form method="POST" action="add_book.php" autocomplete="off">
-    Title: <input type="text" name="title" required autocomplete = "off"><br><br>
-    Author ID: <input type="number" name="author_id" required autocomplete="off"><br><br>
-    ISBN: <input type="text" name="isbn" autocomplete="off"><br><br>
-    Category ID: <input type="number" name="category_id" autocomplete="off"><br><br>
-    Quantity: <input type="number" name="quantity" required autocomplete="off"><br><br>
-    <input type="submit" name="add" value="Add Book">
-</form>
+<div class="container">
+    <h2>Add a New Book</h2>
+    <form method="POST" action="add_book.php" autocomplete="off">
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" required>
 
-<?php
-if (isset($_SESSION['success'])) {
-    echo "<div style='color: green; font-weight: bold; margin-top: 10px;'>Book added successfully!</div>";
-    unset($_SESSION['success']);
-}
-?>
+        <label for="author_id">Author ID:</label>
+        <input type="number" name="author_id" id="author_id" required>
+
+        <label for="isbn">ISBN:</label>
+        <input type="text" name="isbn" id="isbn">
+
+        <label for="category_id">Category ID:</label>
+        <input type="number" name="category_id" id="category_id">
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" id="quantity" required>
+
+        <input type="submit" name="add" value="Add Book">
+    </form>
+
+    <?php
+    if (isset($_SESSION['success'])) {
+        echo "<div class='success'>{$_SESSION['success']}</div>";
+        unset($_SESSION['success']);
+    }
+    ?>
+</div>
 
 </body>
 </html>

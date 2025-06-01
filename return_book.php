@@ -1,7 +1,6 @@
 <?php 
 require_once 'header.php'; ?>
 
-
 <?php
 // session_start();
 
@@ -28,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <html>
 <head><title>Return Book</title></head>
 <body>
-<h2>Return a Book</h2>
+<h2>Return a Book</h2><br>
 <form method="POST" action="">
     Borrow ID: <input type="number" name="borrow_id" required autocomplete = "off"><br><br>
     <input type="submit" name="return" value="Return Book">
